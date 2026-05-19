@@ -25,4 +25,15 @@ def read_lines(filename):
         # archivo contiene: "manzana\n  banana\npera\n"
         read_lines("datos.txt") -> ["manzana", "banana", "pera"]
     """
-    pass  # Reemplazar con tu implementación
+    import os
+    if not os.path.exists(filename):
+        raise FileNotFoundError("Archivo no encontrado")
+    
+    lista = []
+    with open(filename, "r") as arch:
+        for linea in arch:
+            linea = linea.strip()
+            if linea != "": 
+                lista.append(linea)
+    return lista
+#print(read_lines("tp-8-exceptions-and-files-sorsini-austral-main\\data\\ej01_frutas.txt"))

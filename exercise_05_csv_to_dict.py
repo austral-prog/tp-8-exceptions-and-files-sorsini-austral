@@ -34,4 +34,20 @@ def csv_to_dict(filename):
             {"name": "Bob", "age": 25, "city": "Rosario"},
         ]
     """
-    pass  # Reemplazar con tu implementación
+    import os
+    if not os.path.exists(filename):
+        raise FileNotFoundError("Archivo no encontrado")
+    
+    lista = []
+    with open(filename, "r") as arch:
+        header = True
+        for linea in arch:
+            if header == True:
+                name, age, city = linea.strip().split(",")
+                header = False
+            else:
+                valores = linea.strip().split(",")
+                dicc = {name: (valores[0]), age: int(valores[1]), city: (valores[2])}
+                lista.append(dicc)
+    return lista
+#print(csv_to_dict("tp-8-exceptions-and-files-sorsini-austral-main\\data\\ej05_people.csv"))    

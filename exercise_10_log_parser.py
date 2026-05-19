@@ -42,4 +42,22 @@ def parse_log(filename):
             "WARN": ["lento"],
         }
     """
-    pass  # Reemplazar con tu implementación
+    dicc = {}
+    try:
+        with open(filename, "r") as arch:
+            for linea in arch:
+                linea = linea.strip()
+                if not linea:
+                    continue
+                if ":" not in linea:
+                    raise ValueError("invalid log line")
+                else:
+                    nivel, mensaje = [x.strip() for x in linea.split(":", 1)]
+                    if nivel in dicc:
+                        dicc[nivel].append(mensaje)
+                    else:
+                        dicc[nivel] = [mensaje]
+    except FileNotFoundError:
+        raise FileNotFoundError
+    return dicc
+#print(parse_log("tp-8-exceptions-and-files-sorsini-austral-main\\data\\ej10_server_invalido.log"))

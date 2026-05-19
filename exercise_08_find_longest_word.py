@@ -27,4 +27,18 @@ def find_longest_word(filename):
         # archivo contiene: "el gato corre rapido\npor el jardin\n"
         find_longest_word("texto.txt") -> "rapido"
     """
-    pass  # Reemplazar con tu implementación
+    import os
+    if not os.path.exists(filename):
+        raise FileNotFoundError("Archivo no encontrado")
+
+    with open(filename, "r") as arch:
+        contenido = arch.read().split()
+        if not contenido:
+            raise ValueError("file has no words")
+        else:
+            max = contenido[0]
+            for palabra in contenido:
+                if len(palabra) > len(max):
+                    max = palabra
+    return max
+#print(find_longest_word("tp-8-exceptions-and-files-sorsini-austral-main\\data\\ej08_texto.txt"))

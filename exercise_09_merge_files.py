@@ -32,4 +32,16 @@ def merge_files(file1, file2, output):
         # hola
         # mundo
     """
-    pass  # Reemplazar con tu implementación
+    try:
+        with open(file1, "r") as f1, open(file2, "r") as f2:
+            contenido1 = f1.read()
+            contenido2 = f2.read()
+        
+        with open(output, "w") as f3:
+            f3.write(contenido1 + contenido2)
+    except FileNotFoundError:
+        raise FileNotFoundError("Algún archivo no encontrado")
+
+    return None
+    
+#merge_files("ej09_a.txt", "ej09_b.txt", "out.txt")

@@ -31,8 +31,27 @@ def read_sales(filename):
             "producto2": [200.0],
         }
     """
-    pass  # Reemplazar con tu implementación
-
+    import os
+    if not os.path.exists(filename):
+        raise FileNotFoundError("Archivo no encontrado")
+    
+    dicc = {}
+    with open(filename,"r") as arch:
+        contenido = arch.read()
+        valores = contenido.split(";")
+        
+        for valor in valores:
+            valor = valor.strip()
+            if valor:
+                producto, precio = valor.split(":")
+                precio = float(precio)
+                
+                if producto in dicc:
+                    dicc[producto].append(precio)
+                else:
+                    dicc[producto] = [precio]
+    return dicc
+#print(read_sales("tp-8-exceptions-and-files-sorsini-austral-main\\data\\ej03_ventas.txt"))
 
 def process_sales(data):
     """
@@ -53,4 +72,11 @@ def process_sales(data):
         process_sales({"producto1": [100.0, 150.0]})
         # imprime: "producto1: ventas totales $250.00, promedio $125.00"
     """
-    pass  # Reemplazar con tu implementación
+    for producto, valores in data.items():
+        suma = 0
+        for valor in valores:
+            suma += valor
+        ventas_totales = suma
+        promedio = ventas_totales / len(valores)
+        print(f"{producto}: ventas totales ${ventas_totales:.2f}, promedio ${promedio:.2f}")
+#process_sales({"producto1": [100.00, 150.00]})

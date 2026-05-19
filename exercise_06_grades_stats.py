@@ -34,4 +34,22 @@ def grades_stats(filename):
             "Cami": (10.0, 10.0, 10.0),
         }
     """
-    pass  # Reemplazar con tu implementación
+    import os
+    if not os.path.exists(filename):
+        raise FileNotFoundError("Archivo no encontrado")
+
+    dicc = {}
+    with open(filename, "r") as arch:
+        for linea in arch:
+            linea = linea.strip()
+            if linea:
+                estudiante, notas = linea.split(":")
+                lista_notas = [float(n) for n in notas.split(",")]
+            
+                prom = sum(lista_notas) / len(lista_notas)
+                maximo = max(lista_notas)
+                minimo = min(lista_notas)
+            
+                dicc[estudiante] = (prom, maximo, minimo)
+    return dicc
+#print(grades_stats("tp-8-exceptions-and-files-sorsini-austral-main\\data\\ej06_notas.txt"))

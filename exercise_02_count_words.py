@@ -28,4 +28,18 @@ def count_words(filename):
         # archivo contiene: "Hola mundo hola\nmundo python\n"
         count_words("texto.txt") -> {"hola": 2, "mundo": 2, "python": 1}
     """
-    pass  # Reemplazar con tu implementación
+    import os
+    if not os.path.exists(filename):
+        raise FileNotFoundError("Archivo no encontrado")
+    
+    dicc = {}
+    with open(filename, "r") as arch:
+        for linea in arch:
+            palabras = linea.lower().split()
+            for palabra in palabras:
+                if palabra in dicc:
+                    dicc[palabra] += 1
+                else:
+                    dicc[palabra] = 1
+    return dicc
+#print(count_words("tp-8-exceptions-and-files-sorsini-austral-main\\data\\ej02_texto.txt"))
